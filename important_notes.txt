@@ -1,0 +1,7 @@
+TO INITIALISE TABLES THE FIRST TIME, ADD THIS TO THE BOTTOM OF __INIT__.PY
+
+# Call db.create_all() within the application context <= this is context.
+with app.app_context():
+    db.create_all()
+
+Once the run.py has been executed once, this can be removed.
