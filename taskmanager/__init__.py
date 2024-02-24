@@ -19,6 +19,3 @@ else:
 db = SQLAlchemy(app)
 
 from taskmanager import routes
-
-with app.app_context():
-    db.create_all()
