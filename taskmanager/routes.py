@@ -69,7 +69,7 @@ def add_task():
 @app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])
 def edit_task(task_id):
     # Allows current tasks to be edited by a user
-    task = Task.query.get_or_404(task_id) #.get_or_404 retrieves the ID, or throws a 404 if the ID doesn't exist
+    task = Task.query.get_or_404(task_id)
     categories = list(Category.query.order_by(Category.category_name).all())
     if request.method == "POST":
         task.task_name = request.form.get("task_name")
@@ -80,3 +80,12 @@ def edit_task(task_id):
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("edit_task.html", task=task, categories=categories)
+
+
+@app.route("/delete_task/<int:task_id>")
+def delete_task(task_id):
+    # Allows a user to delete a current task
+    task = Task.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for("home"))
