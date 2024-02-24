@@ -66,7 +66,7 @@ def add_task():
     return render_template("add_task.html", categories=categories)
 
 
-@app.route("/edit_tasl/<int:task_id>", methods=["GET", "POST"])
+@app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])
 def edit_task(task_id):
     # Allows current tasks to be edited by a user
     task = Task.query.get_or_404(task_id) #.get_or_404 retrieves the ID, or throws a 404 if the ID doesn't exist
