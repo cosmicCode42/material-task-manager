@@ -64,3 +64,19 @@ def add_task():
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("add_task.html", categories=categories)
+
+
+@app.route("/edit_tasl/<int:task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
+    # Allows current tasks to be edited by a user
+    task = Task.query.get_or_404(task_id) #.get_or_404 retrieves the ID, or throws a 404 if the ID doesn't exist
+    categories = list(Category.query.order_by(Category.category_name).all())
+    if request.method == "POST":
+        task.task_name = request.form.get("task_name")
+        task.task_description = request.form.get("task_description")
+        task.is_urgent = bool(True if request.form.get("is_urgent") else False)
+        task.due_date = request.form.get("due_date")
+        task.category_id = request.form.get("category_id")
+        db.session.commit()
+        return redirect(url_for("home"))
+    return render_template("edit_task.html", task=task, categories=categories)
