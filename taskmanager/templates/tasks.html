@@ -11,4 +11,22 @@
     </div>
 </div>
 
+<ul class="collapsible popout">
+    {% for task in tasks|sort(attribute="due_date") %}
+    <li>
+        <div class="collapsible-header white-text indigo">
+            <i class="material-icons">place</i>
+            <strong>{{ task.task_name }}</strong> &nbsp;{{ task.due_date.strftime("%d %B, %Y") }}
+            {% if task.is_urgent == True %}
+                <i class="material-icons">whatshot</i>
+            {% endif %}
+        </div>
+        <div class="collapsible-body">
+            <strong>{{ task.category }}</strong>
+            <p>{{ task.task_description }}</p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

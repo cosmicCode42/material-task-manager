@@ -5,13 +5,15 @@ from taskmanager.models import Category, Task
 
 @app.route("/")
 def home():
-    return render_template("tasks.html")
+    # displays all tasks stored in the database
+    tasks = list(Task.query.order_by(Task.id).all()) # displays all tasks in a list
+    return render_template("tasks.html", tasks=tasks)
 
 
 @app.route("/categories")
 def categories():
     # displays all categories stored in the database
-    categories = list(Category.query.order_by(Category.category_name).all())
+    categories = list(Category.query.order_by(Category.category_name).all()) # displays all categoriess in a list
     return render_template("categories.html", categories=categories)
 
 
